@@ -193,7 +193,11 @@
       } catch (error) {}
     </script>
     <script>
-      navigator.serviceWorker.register(location.protocol + '//' + location.hostname + '/sw.js')
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./sw.js', { scope: './' }).catch((error) => {
+          console.error('Service worker registration failed:', error)
+        })
+      }
     </script>
   </body>
 </html>
